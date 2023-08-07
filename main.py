@@ -3,7 +3,6 @@ from queries import *
 import hashlib
 import requests
 from bs4 import BeautifulSoup
-from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
 # main function -> loops through all websites, calls is_changed function
