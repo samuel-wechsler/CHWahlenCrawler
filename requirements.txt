@@ -1,0 +1,4 @@
+beautifulsoup4==4.12.2
+requests==2.30.0
+selenium==4.11.2
+SQLAlchemy==1.4.46
