@@ -1,5 +1,6 @@
 # import required libraries
 from queries import *
+import sys
 import hashlib
 import requests
 from bs4 import BeautifulSoup
@@ -12,14 +13,20 @@ def main():
     """
     Checks if any html has been changed.
     """
-    # queries all current urls
-    urls = get_all_urls()
+    mode = sys.argv[1]
 
-    for url in urls:
-        if is_changed(url):
-            print(f"The website has been changed!\n{url}\n\n")
-        else:
-            print(f"No changes have been made.\n\n")
+    if mode == 'add':
+        add_website(sys.argv[2])
+
+    elif mode == 'check':
+        # queries all current urls
+        urls = get_all_urls()
+
+        for url in urls:
+            if is_changed(url):
+                print(f"The website has been changed!\n{url}\n\n")
+            else:
+                print(f"No changes have been made.\n\n")
 
 
 def extract_html(url):
@@ -70,6 +77,24 @@ def is_changed(url):
         return True
 
     return False
+
+
+def add_website(url):
+    """
+    Function checks if html for url can be read, if so, it adds the url to the database.
+    """
+    try:
+        html = extract_html(url)
+    except Exception as e:
+        print("Error reading html: ")
+        print(e)
+        return
+
+    conn = connect_db()
+
+    # insert url into database
+    conn.execute(text("INSERT INTO websites (url) VALUES (:url)"),
+                 {"url": url})
 
 
 if __name__ == "__main__":
