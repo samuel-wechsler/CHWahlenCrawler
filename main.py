@@ -16,6 +16,7 @@ def main():
     mode = sys.argv[1]
 
     if mode == 'add':
+
         add_website(sys.argv[2])
 
     elif mode == 'check':
@@ -95,6 +96,20 @@ def add_website(url):
     # insert url into database
     conn.execute(text("INSERT INTO websites (url) VALUES (:url)"),
                  {"url": url})
+
+def add_websites(file):
+    links = open(file, 'r').readlines()
+
+    
+    for link in links:
+        link = link.replace("\n", "")
+
+        try:
+            add_website(link)
+        except:
+            delete_all()
+            print("Aborted.")
+            return
 
 
 if __name__ == "__main__":

@@ -29,3 +29,8 @@ def get_previous_html(url):
 
     # TODO: except -> no url found
     return prev_html[0]
+
+def delete_all():
+    conn = connect_db()
+
+    conn.execute(text("DELETE FROM websites"))
