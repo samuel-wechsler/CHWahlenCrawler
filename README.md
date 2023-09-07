@@ -7,7 +7,7 @@ git clone https://github.com/samuel-wechsler/CHWahlenCrawler.git
 ````
 
 ```bash
-pip install -r requirements.txt
+pip install -r requirements.txt --user
 ````
 
 ## Usage
